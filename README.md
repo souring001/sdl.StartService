@@ -1,0 +1,2 @@
+# StartService
+Broadcast receiverを使ったAndroidアプリケーション

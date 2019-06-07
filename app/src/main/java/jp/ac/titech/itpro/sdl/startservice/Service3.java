@@ -7,6 +7,8 @@ import android.util.Log;
 public class Service3 extends IntentService {
     private final static String TAG = Service3.class.getSimpleName();
     public final static String EXTRA_MYARG = "MYARG";
+    public final static String ACTION_ANSWER = "ActionANS";
+    public final static String EXTRA_ANSWER = "ExtraANS";
 
     public Service3() {
         super(TAG);
@@ -16,10 +18,19 @@ public class Service3 extends IntentService {
     protected void onHandleIntent(Intent intent) {
         Log.d(TAG, "onHandleIntent in " + Thread.currentThread());
         Log.d(TAG, "myarg = " + intent.getStringExtra(EXTRA_MYARG));
-        try {
-            Thread.sleep(5000); // 5 sec
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+
+        for(int i = 0; i < 10; i ++) {
+            Intent intent2 = new Intent();
+            intent2.setAction(ACTION_ANSWER);
+            intent2.putExtra(EXTRA_ANSWER, "This message is broadcast to you: " + i);
+            sendBroadcast(intent2);
+            Log.d(TAG, "Broadcast in " + Thread.currentThread());
+
+            try {
+                Thread.sleep(1000); // 1 sec
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
